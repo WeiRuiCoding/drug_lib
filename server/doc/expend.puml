@@ -1,0 +1,43 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+expendH --> logic: 消耗请求
+logic --> biz: 参数验证
+biz --> expendF: 消耗开始了
+alt 有充足的豆子
+    expendF --> expendF++: 获取锁
+    expendF --
+
+    group 计算消耗
+        expendF --> expendF++: 获取所有开工豆类型的扣除优先级\n（不存在没有优先级的获取类型）
+        loop 开工豆类型
+            alt 有同一优先级
+                expendF --> expendF++: 查询过期表
+                expendF --> expendF: 过期记录中存在的进行扣除
+                expendF --> expendF: 扣除方式-删除-新增过期记录
+                expendF --
+            end
+            expendF --> expendF: 用户表中进行扣除
+            expendF --> expendF: 扣除方式-根据付费非付费扣除
+            'note left: 如何将各个类型的\n消耗情况进行体现'
+        end
+        expendF --> expendF: 获取到: 过期表删除和新增列表、freeNum、buyNum
+        expendF --> expendF: 事物更新到mysql
+        expendF --
+    end
+
+
+else
+    expendF --> biz: return
+
+end
+
+biz --> logic: return
+logic --> expendH: return
+
+
+
+
+@enduml

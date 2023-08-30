@@ -1,0 +1,22 @@
+name: drug_lib
+httpPort: 6123
+mode: debug
+mysql:
+  dsn: jlg:jlg_mysql_1027#!QW@tcp(172.17.221.41:3306)/jlg?parseTime=true&loc=Local&timeout=3s&multiStatements=true
+  jgjDsn: yzgong:jlg_mysql_1027@tcp(127.0.0.1:3399)/jlg?parseTime=true&loc=Local&timeout=3s
+redis:
+  host: 172.17.221.41:6379
+  pass: Jgj2023
+kafka:
+  bootstrapServers: jgjapp.f3322.net:9092
+  securityProtocol: plaintext
+log:
+  format: line
+  level: debug
+innerPrivateKey: "TestpaGXza5KWRiK"
+alertUrl: "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=4d817431-3a82-4c97-9598-3812c345fc19"
+is_open_user_bean_bin_log: true
+is_open_user_bean_increment: false
+is_open_reverse_sync: false
+grpcClient:
+  notifyAddr: localhost:13021
